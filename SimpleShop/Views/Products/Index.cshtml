@@ -1,0 +1,17 @@
+﻿@model List<SimpleShop.Models.Product>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+@foreach(var product in Model)
+			{
+				<div class="col-md-4">
+					<img src="" />
+					<p><b>@product.ProductName</b></p>
+					<p>@product.Price</p>
+					<p>Weight: @product.ProductFeature.Weight</p>
+				</div>
+			}
+<div class="row"></div>
