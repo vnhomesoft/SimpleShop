@@ -33,5 +33,8 @@ namespace SimpleShop.Models
         public virtual Category Category { get; set; }
 
         public virtual ProductFeature ProductFeature { get; set; }
+
+        // TODO: add virtual property
+        public virtual ICollection<ProductImage> ProductImages { get; set; }
     }
 }

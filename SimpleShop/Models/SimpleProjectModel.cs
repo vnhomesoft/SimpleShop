@@ -16,6 +16,7 @@ namespace SimpleShop.Models
 		public virtual DbSet<Post> Posts { get; set; }
 		public virtual DbSet<ProductFeature> ProductFeatures { get; set; }
 		public virtual DbSet<Product> Products { get; set; }
+		public virtual DbSet<ProductImage> Images { get; set; }	// TODO
 		public virtual DbSet<User> Users { get; set; }
 
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
