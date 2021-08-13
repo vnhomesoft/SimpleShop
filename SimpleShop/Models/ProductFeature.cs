@@ -15,7 +15,5 @@ namespace SimpleShop.Models
 
         [StringLength(50)]
         public string Color { get; set; }
-
-        public virtual Product Product { get; set; }
     }
 }

@@ -25,10 +25,6 @@ namespace SimpleShop.Models
 				.Property(e => e.Weight)
 				.HasPrecision(10, 0);
 
-			modelBuilder.Entity<ProductFeature>()
-				.HasOptional(e => e.Product)
-				.WithRequired(e => e.ProductFeature);
-
 			modelBuilder.Entity<Product>()
 				.Property(e => e.Price)
 				.HasPrecision(18, 0);

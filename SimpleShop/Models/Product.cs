@@ -5,9 +5,16 @@ namespace SimpleShop.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+	using System.Web.Mvc;
 
-    public partial class Product
+	public partial class Product
     {
+        public Product()
+		{
+            this.ProductFeature = new ProductFeature();
+		}
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long ID { get; set; }
 
         [Required]
@@ -19,6 +26,7 @@ namespace SimpleShop.Models
         public string ProductName { get; set; }
 
         [Column(TypeName = "ntext")]
+        [AllowHtml]
         public string Description { get; set; }
 
         public decimal? Price { get; set; }

@@ -49,7 +49,7 @@ namespace SimpleShop.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,ProductCode,ProductName,Description,Price,Quantity,Branch,CategoryID")] Product product)
+        public ActionResult Create([Bind(Include = "ProductCode,ProductName,Description,Price,Quantity,Branch,CategoryID")] Product product)
         {
             if (ModelState.IsValid)
             {

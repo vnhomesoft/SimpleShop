@@ -13,7 +13,7 @@ namespace SimpleShop.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202108121118127_Add product image table"; }
+            get { return "202108130125030_Add product image table"; }
         }
         
         string IMigrationMetadata.Source
