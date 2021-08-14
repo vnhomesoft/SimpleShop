@@ -9,11 +9,15 @@ namespace SimpleShop.Models
     public partial class ProductFeature
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
+       //[Key]
+        [ForeignKey("Product")]
         public long ID { get; set; }
 
         public decimal? Weight { get; set; }
 
         [StringLength(50)]
         public string Color { get; set; }
+
+        public virtual Product Product { get; set; }
     }
 }

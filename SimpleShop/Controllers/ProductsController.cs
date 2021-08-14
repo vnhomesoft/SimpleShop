@@ -29,14 +29,13 @@ namespace SimpleShop.Controllers
             {
                 // Hiển thị dữ liệu của category chỉ định
                 products = db.Products.Include(p => p.Category)
-                    .Include(p => p.ProductFeature)
                     .Where(p => p.CategoryID == categoryId).ToList();
             }
             else
             {
                 // Hiển thị all sản phẩm
                 products = db.Products.Include(p => p.Category)
-                    .Include(p => p.ProductFeature).ToList();
+                    .ToList();
             }
             return View(products);
         }

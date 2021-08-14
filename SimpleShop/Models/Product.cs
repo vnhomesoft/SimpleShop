@@ -9,12 +9,13 @@ namespace SimpleShop.Models
 
 	public partial class Product
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Product()
-		{
-            this.ProductFeature = new ProductFeature();
-		}
+        {
+            ProductImages = new HashSet<ProductImage>();
+            ProductFeature = new ProductFeature();
+        }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long ID { get; set; }
 
         [Required]
@@ -40,9 +41,9 @@ namespace SimpleShop.Models
 
         public virtual Category Category { get; set; }
 
-        public virtual ProductFeature ProductFeature { get; set; }
-
-        // TODO: add virtual property
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductImage> ProductImages { get; set; }
+ 
+        public virtual ProductFeature ProductFeature { get;set; }
     }
 }

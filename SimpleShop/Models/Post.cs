@@ -8,7 +8,7 @@ namespace SimpleShop.Models
 
     public partial class Post
     {
-        public long Id { get; set; }
+        public long ID { get; set; }
 
         [StringLength(200)]
         public string Name { get; set; }

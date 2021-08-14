@@ -17,7 +17,7 @@ namespace SimpleShop.Areas.Admin.Controllers
         // GET: Admin/Products
         public ActionResult Index()
         {
-            var products = db.Products.Include(p => p.Category).Include(p => p.ProductFeature);
+            var products = db.Products.Include(p => p.Category);
             return View(products.ToList());
         }
 

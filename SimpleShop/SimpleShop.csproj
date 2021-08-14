@@ -139,21 +139,17 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202108101241188_Init database.cs" />
-    <Compile Include="Migrations\202108101241188_Init database.designer.cs">
-      <DependentUpon>202108101241188_Init database.cs</DependentUpon>
+    <Compile Include="Migrations\202108140708491_init.cs" />
+    <Compile Include="Migrations\202108140708491_init.Designer.cs">
+      <DependentUpon>202108140708491_init.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202108130125030_Add product image table.cs" />
-    <Compile Include="Migrations\202108130125030_Add product image table.Designer.cs">
-      <DependentUpon>202108130125030_Add product image table.cs</DependentUpon>
+    <Compile Include="Migrations\202108140730596_Add product_productFeature relationship.cs" />
+    <Compile Include="Migrations\202108140730596_Add product_productFeature relationship.Designer.cs">
+      <DependentUpon>202108140730596_Add product_productFeature relationship.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202108130146054_Set product PK identity.cs" />
-    <Compile Include="Migrations\202108130146054_Set product PK identity.Designer.cs">
-      <DependentUpon>202108130146054_Set product PK identity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202108130221199_Remove relationship ProductFeature_to_Product.cs" />
-    <Compile Include="Migrations\202108130221199_Remove relationship ProductFeature_to_Product.Designer.cs">
-      <DependentUpon>202108130221199_Remove relationship ProductFeature_to_Product.cs</DependentUpon>
+    <Compile Include="Migrations\202108140814263_Cascade delete product feature.cs" />
+    <Compile Include="Migrations\202108140814263_Cascade delete product feature.Designer.cs">
+      <DependentUpon>202108140814263_Cascade delete product feature.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Category.cs" />
@@ -595,17 +591,14 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202108101241188_Init database.resx">
-      <DependentUpon>202108101241188_Init database.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202108140708491_init.resx">
+      <DependentUpon>202108140708491_init.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202108130125030_Add product image table.resx">
-      <DependentUpon>202108130125030_Add product image table.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202108140730596_Add product_productFeature relationship.resx">
+      <DependentUpon>202108140730596_Add product_productFeature relationship.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202108130146054_Set product PK identity.resx">
-      <DependentUpon>202108130146054_Set product PK identity.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202108130221199_Remove relationship ProductFeature_to_Product.resx">
-      <DependentUpon>202108130221199_Remove relationship ProductFeature_to_Product.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202108140814263_Cascade delete product feature.resx">
+      <DependentUpon>202108140814263_Cascade delete product feature.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

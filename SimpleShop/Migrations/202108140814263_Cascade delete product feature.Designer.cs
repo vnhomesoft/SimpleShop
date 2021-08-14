@@ -7,13 +7,13 @@ namespace SimpleShop.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class SetproductPKidentity : IMigrationMetadata
+    public sealed partial class Cascadedeleteproductfeature : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(SetproductPKidentity));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Cascadedeleteproductfeature));
         
         string IMigrationMetadata.Id
         {
-            get { return "202108130146054_Set product PK identity"; }
+            get { return "202108140814263_Cascade delete product feature"; }
         }
         
         string IMigrationMetadata.Source

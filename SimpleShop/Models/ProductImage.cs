@@ -1,24 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
-
 namespace SimpleShop.Models
 {
-	// TODO:
-	public class ProductImage
-	{
-		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-		public int ID { get; set; }
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity.Spatial;
 
-		//[MaxLength(200)]
-		public string ImageUrl { get; set; }
+    public partial class ProductImage
+    {
+        public int ID { get; set; }
 
-		/// <summary>
-		/// Set True để làm hình ảnh đại diện cho sản phẩm
-		/// </summary>
-		public bool IsFeatured { get; set; }
-	}
+        public string ImageUrl { get; set; }
+
+        public bool IsFeatured { get; set; }
+
+        public long? Product_ID { get; set; }
+
+        public virtual Product Product { get; set; }
+    }
 }
