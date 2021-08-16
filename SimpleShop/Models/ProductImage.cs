@@ -14,7 +14,7 @@ namespace SimpleShop.Models
 
         public bool IsFeatured { get; set; }
 
-        public long? Product_ID { get; set; }
+        //public long? Product_ID { get; set; }
 
         public virtual Product Product { get; set; }
     }

@@ -35,13 +35,11 @@ namespace SimpleShop.Models
 				.Property(e => e.Price)
 				.HasPrecision(18, 0);
 
-			modelBuilder.Entity<Product>()
-				.HasMany(e => e.ProductImages)
-				.WithOptional(e => e.Product)
-				.HasForeignKey(e => e.Product_ID);
 			//modelBuilder.Entity<Product>()
-			//	.HasRequired(p => p.ProductFeature)
-			//	.WithRequiredDependent().WillCascadeOnDelete(true);
+			//	.HasMany(e => e.ProductImages)
+			//	.WithOptional(e => e.Product)
+			//	.HasForeignKey(e => e.Product_ID);
+
 		}
 	}
 }

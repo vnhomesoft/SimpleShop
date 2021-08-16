@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SimpleShop.Models;
+using SimpleShop.Models.ViewModels;
 
 namespace SimpleShop.Areas.Admin.Controllers
 {
@@ -85,11 +86,14 @@ namespace SimpleShop.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,ProductCode,ProductName,Description,Price,Quantity,Branch,CategoryID")] Product product)
+        public ActionResult Edit([Bind(Include = "ID,ProductCode,ProductName,Description,Price,Quantity,Branch,CategoryID, UploadFile")] Product product)
         {
             if (ModelState.IsValid)
             {
+                product.ProductFeature.ID = product.ID;
+
                 db.Entry(product).State = EntityState.Modified;
+                SaveUploadedImage(product); // TODO: upload image, cần accept field ở phần Bind
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -122,6 +126,28 @@ namespace SimpleShop.Areas.Admin.Controllers
             db.Products.Remove(product);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        // Sử dụng view upload riêng
+        public ActionResult Upload(ImageUpload product)
+		{
+            
+            return View(product);
+		}
+
+        private void SaveUploadedImage(Product product)
+		{
+            string uploadDir = "/Uploads";
+            string relativePath = product.UploadFile.FileName;
+            string absolutePath = Server.MapPath(uploadDir + "/" + product.UploadFile.FileName);
+            var featuredImage = new ProductImage
+            {
+                ImageUrl = relativePath,
+                IsFeatured = true
+            };
+            product.UploadFile.SaveAs(absolutePath);
+            product.ProductImages.Add(featuredImage);
+           // db.SaveChanges();
         }
 
         protected override void Dispose(bool disposing)

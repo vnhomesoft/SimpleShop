@@ -5,7 +5,9 @@ namespace SimpleShop.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+	using System.Web;
 	using System.Web.Mvc;
+    using System.Linq;
 
 	public partial class Product
     {
@@ -40,6 +42,19 @@ namespace SimpleShop.Models
         public long? CategoryID { get; set; }
 
         public virtual Category Category { get; set; }
+
+        // Không mapping field này với DB (do trong DB không có)
+        [NotMapped]
+        public HttpPostedFileBase UploadFile { get; set; }
+        [NotMapped]
+        public string FeaturedImage {
+			get
+			{
+                var featuredImage = ProductImages.Where(it => it.IsFeatured).FirstOrDefault();
+                if(ProductImages.Count == 0 || featuredImage == null) { return ""; };
+                return featuredImage.ImageUrl;
+			}
+        }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductImage> ProductImages { get; set; }
