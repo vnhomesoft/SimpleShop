@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using SimpleShop.Models;
 using SimpleShop.Models.ViewModels;
+using System.IO;
 
 namespace SimpleShop.Areas.Admin.Controllers
 {
@@ -128,18 +129,63 @@ namespace SimpleShop.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
-        // Sử dụng view upload riêng
-        public ActionResult Upload(ImageUpload product)
+        /// <summary>
+        /// Hiển thị gallery view
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult Gallery(int id)
 		{
-            
-            return View(product);
+            Product product = db.Products.Include(p => p.ProductImages)
+                .Where(p => p.ID == id).First();
+            ImageUpload viewModel = new ImageUpload { Product = product };
+            return View(viewModel);
 		}
 
+        /// <summary>
+        /// Upload 1 hoặc nhiều file (dùng để upload image gallery)
+        /// </summary>
+        /// <param name="viewModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UploadGallery(ImageUpload viewModel)
+		{
+            var product = db.Products.Find(viewModel.Product.ID);
+            var fileList = new List<HttpPostedFileBase>();
+            if(viewModel.UploadFile1 != null)
+			{
+                fileList.Add(viewModel.UploadFile1);
+			}
+            if (viewModel.UploadFile2 != null)
+            {
+                fileList.Add(viewModel.UploadFile2);
+            }
+            if (viewModel.UploadFile3 != null)
+            {
+                fileList.Add(viewModel.UploadFile3);
+            }
+			//if (ModelState.IsValid)       // bởi vì thông tin product gửi lên không đầy đủ (thiếu required fields) -> không check điều kiện này (nếu không sẽ luôn false)
+			//{
+                db.Entry(product).State = EntityState.Modified;
+                db.Entry(product.ProductFeature).State = EntityState.Unchanged;
+                SaveUploadedImages(product, fileList);
+                db.SaveChanges();
+			//}
+
+            viewModel.Product = product;
+            return RedirectToAction("Gallery", viewModel);
+		}
+
+        /// <summary>
+        /// Lưu hình ảnh đại diện (featured image) của product
+        /// </summary>
+        /// <param name="product"></param>
         private void SaveUploadedImage(Product product)
 		{
             string uploadDir = "/Uploads";
             string relativePath = product.UploadFile.FileName;
-            string absolutePath = Server.MapPath(uploadDir + "/" + product.UploadFile.FileName);
+            string absolutePath = Server.MapPath(uploadDir + "/" + relativePath);
             var featuredImage = new ProductImage
             {
                 ImageUrl = relativePath,
@@ -147,8 +193,48 @@ namespace SimpleShop.Areas.Admin.Controllers
             };
             product.UploadFile.SaveAs(absolutePath);
             product.ProductImages.Add(featuredImage);
-           // db.SaveChanges();
         }
+
+        private void SaveUploadedImages(Product product, List<HttpPostedFileBase> uploadFiles)
+        {
+            string uploadDir = "/Uploads";
+            foreach (var file in uploadFiles)
+            {
+                string relativePath = file.FileName;
+                string absolutePath = Server.MapPath(uploadDir + "/" + relativePath);
+                var galleryImage = new ProductImage
+                {
+                    ImageUrl = relativePath,
+                    IsFeatured = false      // Image gallery thì set giá trị này là False
+                };
+                file.SaveAs(absolutePath);
+                product.ProductImages.Add(galleryImage);
+            }
+        }
+
+        /// <summary>
+        /// Xóa image của product sau đó return về trang Edit.
+        /// Cần cung cấu tham số RedirectUrl ở dạng query string
+        /// </summary>
+        /// <param name="id">Image ID</param>
+        public ActionResult RemoveImage(int id)
+		{
+            string redirectUrl = Request.Params.Get("RedirectUrl"); // Ví dụ: /Admin/Products/Edit/12
+            ProductImage image = db.ProductImages.Find(id);
+            Product product = db.Products.Find(image.Product.ID);
+            product.ProductImages.Remove(image);
+            db.Entry(product).State = EntityState.Modified;
+            db.Entry(product.ProductFeature).State = EntityState.Unchanged; // Fix vấn đề quan hệ 1-1 (không cần care trong xử lí upload)
+            db.SaveChanges();
+
+            string uploadDir = "/Uploads";
+            string absolutePath = Server.MapPath(uploadDir + "/" + image.ImageUrl);
+			if (System.IO.File.Exists(absolutePath))
+			{
+                System.IO.File.Delete(absolutePath);
+			}
+            return Redirect(redirectUrl);
+		}
 
         protected override void Dispose(bool disposing)
         {

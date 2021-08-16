@@ -55,6 +55,16 @@ namespace SimpleShop.Models
                 return featuredImage.ImageUrl;
 			}
         }
+        [NotMapped]
+        public ProductImage FeaturedImageObject
+		{
+            get
+            {
+                var featuredImage = ProductImages.Where(it => it.IsFeatured).FirstOrDefault();
+                if (ProductImages.Count == 0 || featuredImage == null) { return new ProductImage { ImageUrl = string.Empty}; };
+                return featuredImage;
+            }
+        }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductImage> ProductImages { get; set; }

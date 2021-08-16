@@ -79,7 +79,15 @@
 		<div class="form-group">
 			<label class="col-md-2 control-label">Featured Image</label>
 			<div class="col-md-10">
-				@Html.TextBoxFor(model => model.UploadFile, new { @type="file"})
+				@if (string.IsNullOrWhiteSpace(Model.FeaturedImage))
+				{
+					@Html.TextBoxFor(model => model.UploadFile, new { @type = "file" })
+				}
+				else
+				{
+					<a href="@Url.Action("RemoveImage", "Products", new { id = Model.FeaturedImageObject.ID})?RedirectUrl=/Admin/Products/Edit/@Model.ID">Remove</a>
+					
+				}
 			</div>
 			<div class="col-md-4">
 				<img class="thumbnail img-thumbnail" src="@Utils.GetImageUrl(Model.FeaturedImage)"/>
@@ -88,7 +96,8 @@
 
 		<div class="form-group">
 			<div class="col-md-offset-2 col-md-10">
-				<input type="submit" value="Save" class="btn btn-default" />
+				<input type="submit" value="Save" class="btn btn-primary" />
+				@Html.ActionLink("Add Image to Gallery", "Gallery", new { id = Model.ID}, new { @class="btn btn-success" });
 			</div>
 		</div>
 	</div>

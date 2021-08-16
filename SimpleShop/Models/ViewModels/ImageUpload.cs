@@ -9,7 +9,9 @@ namespace SimpleShop.Models.ViewModels
 	// Vì field UploadFile không phải là field trong DB -> không 
 	public class ImageUpload
 	{
-		public int ProductID { get; set; }
-		public HttpPostedFileBase UploadFile { get; set; }
+		public Product Product { get; set; }
+		public HttpPostedFileBase UploadFile1 { get; set; }
+		public HttpPostedFileBase UploadFile2 { get; set; }
+		public HttpPostedFileBase UploadFile3 { get; set; }
 	}
 }

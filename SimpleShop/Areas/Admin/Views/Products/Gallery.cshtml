@@ -1,0 +1,47 @@
+﻿@using SimpleShop.Common
+@model SimpleShop.Models.ViewModels.ImageUpload
+
+<h1>Gallery for "@Model.Product.ProductName"</h1>
+@using (Html.BeginForm("UploadGallery", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+	@Html.AntiForgeryToken()
+	@Html.HiddenFor(model => model.Product.ID)
+	<div class="form-horizontal">
+		<div class="form-group">
+			<label class="col-md-2 control-label">Image 1</label>
+			<div class="col-md-10">
+				@Html.TextBoxFor(model => model.UploadFile1, new { @type = "file" })
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-2 control-label">Image 2</label>
+			<div class="col-md-10">
+				@Html.TextBoxFor(model => model.UploadFile2, new { @type = "file" })
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-2 control-label">Image 3</label>
+			<div class="col-md-10">
+				@Html.TextBoxFor(model => model.UploadFile3, new { @type = "file" })
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-md-offset-2 col-md-10">
+				<input type="submit" value="Save" class="btn btn-primary" />
+				@Html.ActionLink("Back", "Edit", new { id = Model.Product.ID }, new { @class = "btn btn-default" })
+			</div>
+		</div>
+	</div>
+}
+<div class="row">
+	@foreach (var image in Model.Product.ProductImages)
+	{
+
+		if (image.IsFeatured) { continue; }
+
+		<div class="col-md-3">
+			<img class="img-responsive" src="@Utils.GetImageUrl(image.ImageUrl)" />
+			<a href="@Url.Action("RemoveImage", "Products", new { id = image.ID})?RedirectUrl=/Admin/Products/Gallery/@Model.Product.ID">Remove</a>
+		</div>
+	}
+</div>
