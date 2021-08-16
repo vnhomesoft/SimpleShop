@@ -23,5 +23,11 @@ namespace SimpleShop.Common
 			//return string.Empty;	// TODO: Có thể trả về URL của image mặc định
 			return "/Content/default_image.png";
 		}
+
+		public static string PrependUniqueString(string target)
+		{
+			// Thêm thời gian vào trước chuỗi để tránh bị trùng lặp khi upload file
+			return DateTime.Now.ToString("yyyyMMddHHmmss") + "_" + target;
+		}
 	}
 }

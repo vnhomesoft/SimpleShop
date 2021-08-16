@@ -173,8 +173,7 @@ namespace SimpleShop.Areas.Admin.Controllers
                 db.SaveChanges();
 			//}
 
-            viewModel.Product = product;
-            return RedirectToAction("Gallery", viewModel);
+            return RedirectToAction("Gallery", "Products", new { id = product.ID});      // Sử dụng redirect để tránh tình trạng postback khiến upload lại
 		}
 
         /// <summary>
@@ -184,7 +183,7 @@ namespace SimpleShop.Areas.Admin.Controllers
         private void SaveUploadedImage(Product product)
 		{
             string uploadDir = "/Uploads";
-            string relativePath = product.UploadFile.FileName;
+            string relativePath = Common.Utils.PrependUniqueString(product.UploadFile.FileName);
             string absolutePath = Server.MapPath(uploadDir + "/" + relativePath);
             var featuredImage = new ProductImage
             {
@@ -200,7 +199,7 @@ namespace SimpleShop.Areas.Admin.Controllers
             string uploadDir = "/Uploads";
             foreach (var file in uploadFiles)
             {
-                string relativePath = file.FileName;
+                string relativePath = Common.Utils.PrependUniqueString(file.FileName);
                 string absolutePath = Server.MapPath(uploadDir + "/" + relativePath);
                 var galleryImage = new ProductImage
                 {
@@ -211,6 +210,7 @@ namespace SimpleShop.Areas.Admin.Controllers
                 product.ProductImages.Add(galleryImage);
             }
         }
+
 
         /// <summary>
         /// Xóa image của product sau đó return về trang Edit.
