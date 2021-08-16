@@ -185,15 +185,21 @@ namespace SimpleShop.Areas.Admin.Controllers
             // Bỏ qua xử lí nếu không có file được upload
             if(product.UploadFile == null) { return; }
 
+            // Lấy đường dẫn để lưu
             string uploadDir = "/Uploads";
             string relativePath = Common.Utils.PrependUniqueString(product.UploadFile.FileName);
             string absolutePath = Server.MapPath(uploadDir + "/" + relativePath);
+           
             var featuredImage = new ProductImage
             {
                 ImageUrl = relativePath,
                 IsFeatured = true
             };
-            product.UploadFile.SaveAs(absolutePath);
+
+            // Cơ bản để lưu file về
+            product.UploadFile.SaveAs(absolutePath);      
+           
+            // Gắn thông tin imgage vào sản phẩm (lưu dữ liệu vào bảng ProductImage)
             product.ProductImages.Add(featuredImage);
         }
 
