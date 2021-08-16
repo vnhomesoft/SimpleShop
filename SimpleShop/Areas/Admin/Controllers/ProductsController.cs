@@ -182,6 +182,9 @@ namespace SimpleShop.Areas.Admin.Controllers
         /// <param name="product"></param>
         private void SaveUploadedImage(Product product)
 		{
+            // Bỏ qua xử lí nếu không có file được upload
+            if(product.UploadFile == null) { return; }
+
             string uploadDir = "/Uploads";
             string relativePath = Common.Utils.PrependUniqueString(product.UploadFile.FileName);
             string absolutePath = Server.MapPath(uploadDir + "/" + relativePath);
