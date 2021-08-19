@@ -5,8 +5,9 @@ namespace SimpleShop.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+	using System.Web.Mvc;
 
-    public partial class Post
+	public partial class Post
     {
         public long ID { get; set; }
 
@@ -18,6 +19,7 @@ namespace SimpleShop.Models
         public string Title { get; set; }
 
         [Required]
+        [AllowHtml]
         public string Content { get; set; }
 
         [StringLength(250)]
