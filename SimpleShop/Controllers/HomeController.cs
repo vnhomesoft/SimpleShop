@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SimpleShop.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +9,7 @@ namespace SimpleShop.Controllers
 {
 	public class HomeController : Controller
 	{
+		SimpleProjectModel db = new SimpleProjectModel();
 		public ActionResult Index()
 		{
 			return View();
@@ -15,14 +17,30 @@ namespace SimpleShop.Controllers
 
 		public ActionResult About()
 		{
-			ViewBag.Message = "Your application description page.";
+			var about = db.Posts.Where(post => post.Name == "about_page").FirstOrDefault();
+			if (about != null)
+			{
+				ViewBag.Content = about.Content;
+			}
+			else
+			{
+				ViewBag.Content = "<h3>Nội dung này chưa được cập nhật</h3>";
+			}
 
 			return View();
 		}
 
 		public ActionResult Contact()
 		{
-			ViewBag.Message = "Your contact page.";
+			var about = db.Posts.Where(post => post.Name == "contact_page").FirstOrDefault();
+			if (about != null)
+			{
+				ViewBag.Content = about.Content;
+			}
+			else
+			{
+				ViewBag.Content = "<h3>Nội dung này chưa được cập nhật</h3>";
+			}
 
 			return View();
 		}

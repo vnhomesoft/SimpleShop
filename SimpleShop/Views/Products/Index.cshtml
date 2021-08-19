@@ -8,14 +8,37 @@
 <h2>Index</h2>
 @foreach (var product in Model)
 {
-	<div class="col-md-4 product-block">
-		<img src="" />
-		<p><b>@product.ProductName</b></p>
-		<p>@product.Price</p>
-		<p>Weight: @product.ProductFeature.Weight</p>
+	<div class="col-md-4">
+		<div class="product-block">
+			<img src="" />
+			<p><b>@product.ProductName</b></p>
+			<p>@product.Price</p>
+			<p>Weight: @product.ProductFeature.Weight</p>
+			<input id="quantity_@product.ID" type="number" value="1" class="product-quantity" />
+			<a href="@Url.Action( "AddToCart", new {controller = "Cart", id = product.ID })?quantity=1" class="btn btn-danger btn-add-to-cart">Add to Cart</a>
+		</div>
 	</div>
 
 
 
 }
 <div class="row"></div>
+
+@section scripts{
+	<script>
+		function changeCartLink(input) {
+			var linkTag = $(input).parent().find('.btn-add-to-cart').first();
+			var url = $(linkTag).attr('href');
+			var newQuantity = $(input).val();
+			var indexOfEqual = url.lastIndexOf('=');
+			url = url.substring(0, indexOfEqual + 1) + newQuantity;
+			$(linkTag).attr('href', url);
+		}
+
+		$(document).ready(function () {
+			$(".product-quantity").change(function () {
+				changeCartLink(this);
+			});
+		});
+	</script>
+}

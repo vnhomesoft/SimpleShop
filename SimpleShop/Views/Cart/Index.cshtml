@@ -1,0 +1,56 @@
+﻿@model IEnumerable<SimpleShop.Models.ViewModels.CartItem>
+
+@{
+	ViewBag.Title = "Shopping Cart";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Shopping Cart</h2>
+
+<p>
+	@Html.ActionLink("Continue shopping", "Index", new { controller = "Products"})
+</p>
+
+@using (Html.BeginForm("UpdateCart", "Cart", FormMethod.Post))
+{
+	<table class="table">
+		<tr>
+
+			<th>
+				@Html.DisplayNameFor(model => model.ImageUrl)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.ProductName)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Quantity)
+			</th>
+			<th></th>
+		</tr>
+
+
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					<img class="img-thumbnail product-image-thumb" style="max-width:100px; max-height:100px;" src="@Server.UrlDecode(item.ImageUrl)" />
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.ProductName)
+
+					<input type="hidden" value="@item.ProductId" name="productIds" id="productId_@item.ProductId" />
+				</td>
+				<td>
+					<input type="number" value="@item.Quantity" name="quantities" id="quantity_@item.ProductId" />
+				</td>
+				<td>
+					@Html.ActionLink("Details", "Details", new { id = item.ProductId }) |
+					@Html.ActionLink("Delete", "RemoveFromCart", new { id = item.ProductId })
+				</td>
+			</tr>
+		}
+
+	</table>
+	<input type="submit" value="Update Cart" class="btn btn-default" />
+	@Html.ActionLink("Check out","CheckOut", null, new { @class = "btn btn-primary"})
+}
