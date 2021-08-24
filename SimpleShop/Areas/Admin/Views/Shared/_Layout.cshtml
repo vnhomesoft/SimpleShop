@@ -19,11 +19,25 @@
                 </button>
                 @Html.ActionLink("SimpleShop", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-					<li>@Html.ActionLink("Products", "Index")</li>
-                </ul>
-            </div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li>@Html.ActionLink("Products", "Index", new { controller = "Products" })</li>
+					<li>@Html.ActionLink("Categories", "Index", new { controller = "Categories" })</li>
+					<li>@Html.ActionLink("Posts", "Index", new { controller = "Posts" })</li>
+					<li>@Html.ActionLink("Users", "Index", new { controller = "Users" })</li>
+					
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					@if (User.Identity.IsAuthenticated)
+					{
+                        <li>                                   
+							<label class="navbar-text"><span class="glyphicon glyphicon-user" style="padding-right: 5px;"></span>@User.Identity.Name</label>
+                        </li>
+						<li>@Html.ActionLink("Sign out", "SignOut", new { area = "", controller = "Account" })</li>
+					}
+				</ul>
+
+			</div>
         </div>
     </div>
 

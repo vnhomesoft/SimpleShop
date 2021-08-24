@@ -12,6 +12,7 @@ using System.IO;
 
 namespace SimpleShop.Areas.Admin.Controllers
 {
+    [Authorize]
     public class ProductsController : Controller
     {
         private SimpleProjectModel db = new SimpleProjectModel();

@@ -18,5 +18,8 @@ namespace SimpleShop.Models
 
         [StringLength(50)]
         public string Email { get; set; }
+
+        [StringLength(50)]
+        public string Role { get; set; }
     }
 }

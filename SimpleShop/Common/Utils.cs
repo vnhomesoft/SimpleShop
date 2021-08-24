@@ -29,5 +29,10 @@ namespace SimpleShop.Common
 			// Thêm thời gian vào trước chuỗi để tránh bị trùng lặp khi upload file
 			return DateTime.Now.ToString("yyyyMMddHHmmss") + "_" + target;
 		}
+
+		public static string RemoveHtmlTags(string inputHtml)
+		{
+			return System.Text.RegularExpressions.Regex.Replace(inputHtml ?? "", "<.*?>", "");
+		}
 	}
 }

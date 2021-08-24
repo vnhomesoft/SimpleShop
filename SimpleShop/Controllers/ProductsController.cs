@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace SimpleShop.Controllers
 {  
+   
     public class ProductsController : Controller
     {
         SimpleProjectModel db = new SimpleProjectModel();

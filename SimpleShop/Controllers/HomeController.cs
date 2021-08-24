@@ -12,7 +12,8 @@ namespace SimpleShop.Controllers
 		SimpleProjectModel db = new SimpleProjectModel();
 		public ActionResult Index()
 		{
-			return View();
+			//return View();
+			return RedirectToAction("Index", new { controller = "Products" });
 		}
 
 		public ActionResult About()
